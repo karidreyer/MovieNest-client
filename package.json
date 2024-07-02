@@ -10,5 +10,13 @@
     "url": "MovieNest-client"
   },
   "author": "Kari Dreyer",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.12.0",
+    "process": "^0.11.10"
+  }
 }
