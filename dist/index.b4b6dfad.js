@@ -2958,19 +2958,10 @@ var _mainView = require("./components/main-view/main-view");
 var _indexScss = require("./index.scss");
 //Main component (will eventually use all the others)
 const MovieNestApplication = ()=>{
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        className: "movie-nest",
-        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-            children: "Good morning!"
-        }, void 0, false, {
-            fileName: "src/index.jsx",
-            lineNumber: 11,
-            columnNumber: 13
-        }, undefined)
-    }, void 0, false, {
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _mainView.MainView), {}, void 0, false, {
         fileName: "src/index.jsx",
-        lineNumber: 10,
-        columnNumber: 9
+        lineNumber: 9,
+        columnNumber: 12
     }, undefined);
 };
 _c = MovieNestApplication;
@@ -2980,7 +2971,7 @@ const root = (0, _client.createRoot)(container);
 //Tells Reach to render your app in the root DOM element
 root.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(MovieNestApplication, {}, void 0, false, {
     fileName: "src/index.jsx",
-    lineNumber: 21,
+    lineNumber: 17,
     columnNumber: 13
 }, undefined));
 var _c;
@@ -27391,7 +27382,6 @@ const MainView = ()=>{
     _s();
     const [movies, setMovies] = (0, _react.useState)([
         {
-            _id: ObjectID("665ef9509dddec05c68fcd0c"),
             title: "Zero Dark Thirty",
             description: "A chronicle of the decade-long hunt for al-Qaeda terrorist leader Osama bin Laden after the September 2001 attacks, and his death at the hands of the Navy SEAL Team 6 in May 2011.",
             genre: "Action",
@@ -27400,7 +27390,6 @@ const MainView = ()=>{
             featured: false
         },
         {
-            _id: ObjectID("665efb609dddec05c68fcd13"),
             title: "Marie Antoinette",
             description: "The retelling of France's iconic but ill-fated queen, Marie Antoinette. From her betrothal and marriage to Louis XVI at 15 to her reign as queen at 19 and ultimately the fall of Versailles.",
             genre: "Historical",
@@ -27409,7 +27398,6 @@ const MainView = ()=>{
             featured: false
         },
         {
-            _id: ObjectID("665efb3b9dddec05c68fcd11"),
             title: "A Wrinkle in Time",
             description: "After the disappearance of her scientist father, three peculiar beings send Meg, her brother, and her friend to space in order to find him.",
             genre: "Fantasy",
@@ -27424,14 +27412,14 @@ const MainView = ()=>{
         onBackClick: ()=>setSelectedMovie(null)
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 40,
+        lineNumber: 37,
         columnNumber: 13
     }, undefined);
     if (movies.length === 0) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: "The list is empty!"
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 45,
+        lineNumber: 42,
         columnNumber: 16
     }, undefined);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27442,16 +27430,16 @@ const MainView = ()=>{
                 }
             }, movie.id, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 51,
+                lineNumber: 48,
                 columnNumber: 17
             }, undefined))
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 49,
+        lineNumber: 46,
         columnNumber: 9
     }, undefined);
 };
-_s(MainView, "RjlHE7UG6lE0zgdXCOkd855E+Uo=");
+_s(MainView, "PTw6r3I9K44jYfQAO3mkrh42l0s=");
 _c = MainView;
 var _c;
 $RefreshReg$(_c, "MainView");
