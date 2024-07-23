@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import PropTypes from 'prop-types';
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 
@@ -50,4 +51,24 @@ export const MainView = () => {
             ))}
         </div>
     );
+};
+
+// Define PropTypes for MainView
+MovieView.propTypes = {
+    movie: PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+        imagePath: PropTypes.string.isRequired,
+        genre: PropTypes.shape({
+            name: PropTypes.string.isRequired,
+            description: PropTypes.string
+        }).isRequired,
+        director: PropTypes.shape({
+            name: PropTypes.string.isRequired,
+            bio: PropTypes.string,
+            birth: PropTypes.string,
+            death: PropTypes.string
+        }).isRequired
+    }).isRequired,
+    onBackClick: PropTypes.func.isRequired
 };
