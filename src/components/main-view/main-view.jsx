@@ -2,11 +2,12 @@ import { useState, useEffect } from "react";
 import PropTypes from 'prop-types';
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
+import { LoginView } from "../login-view/login-view";
 
 export const MainView = () => {
     const [movies, setMovies] = useState([]);
-
     const [selectedMovie, setSelectedMovie] = useState(null);
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
         fetch("https://movie-nest-app-630a7e8ce836.herokuapp.com/movies")
@@ -35,6 +36,10 @@ export const MainView = () => {
             setMovies(moviesFromApi);
           });
       }, []);
+
+    if (!user) {
+        return <LoginView />;
+    }
 
     if (selectedMovie) {
         return (
