@@ -1,36 +1,40 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import PropTypes from 'prop-types';
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 
 export const MainView = () => {
-    const [movies, setMovies] = useState([
-        {
-            title: "Zero Dark Thirty",
-            description: "A chronicle of the decade-long hunt for al-Qaeda terrorist leader Osama bin Laden after the September 2001 attacks, and his death at the hands of the Navy SEAL Team 6 in May 2011.",
-            genre: "Action",
-            director: "Kathryn Bigelow",
-            imagePath: "https://i.postimg.cc/GpW6KKkf/zerodarkthirty.png",
-            featured: false
-        },
-        {
-            title: "Marie Antoinette",
-            description: "The retelling of France's iconic but ill-fated queen, Marie Antoinette. From her betrothal and marriage to Louis XVI at 15 to her reign as queen at 19 and ultimately the fall of Versailles.",
-            genre: "Historical",
-            director: "Sofia Coppola",
-            imagePath: "https://i.postimg.cc/FKr4cDVV/marieantoinette.png",
-            featured: false
-        },
-        {
-            title: "A Wrinkle in Time",
-            description: "After the disappearance of her scientist father, three peculiar beings send Meg, her brother, and her friend to space in order to find him.",
-            genre: "Fantasy",
-            director: "Ava DuVernay",
-            imagePath: "https://i.postimg.cc/tCpV1HV1/awrinkleintime.png",
-            featured: true
-        }
-    ]);
+    const [movies, setMovies] = useState([]);
 
     const [selectedMovie, setSelectedMovie] = useState(null);
+
+    useEffect(() => {
+        fetch("https://movie-nest-app-630a7e8ce836.herokuapp.com/movies")
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("movies from api:", data);
+            const moviesFromApi = data.map((movie) => {
+              return {
+                id: movie._id,
+                title: movie.Title,
+                description: movie.Description,
+                imagePath: movie.ImagePath,
+                genre: {
+                    name: movie.Genre.Name,
+                    description: movie.Genre.Description
+                },
+                director: {
+                    name: movie.Director.Name,
+                    bio: movie.Director.Bio,
+                    birth: movie.Director.Birth,
+                    death: movie.Director.Death
+                }
+              };
+            });
+    
+            setMovies(moviesFromApi);
+          });
+      }, []);
 
     if (selectedMovie) {
         return (
@@ -55,4 +59,24 @@ export const MainView = () => {
             ))}
         </div>
     );
+};
+
+// Define PropTypes for MainView
+MovieView.propTypes = {
+    movie: PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+        imagePath: PropTypes.string.isRequired,
+        genre: PropTypes.shape({
+            name: PropTypes.string.isRequired,
+            description: PropTypes.string
+        }).isRequired,
+        director: PropTypes.shape({
+            name: PropTypes.string.isRequired,
+            bio: PropTypes.string,
+            birth: PropTypes.string,
+            death: PropTypes.string
+        }).isRequired
+    }).isRequired,
+    onBackClick: PropTypes.func.isRequired
 };
