@@ -8,9 +8,16 @@ export const MainView = () => {
     const [movies, setMovies] = useState([]);
     const [selectedMovie, setSelectedMovie] = useState(null);
     const [user, setUser] = useState(null);
+    const [token, setToken] = useState(null);
 
     useEffect(() => {
-        fetch("https://movie-nest-app-630a7e8ce836.herokuapp.com/movies")
+        if (!token) {
+            return;
+        }
+
+        fetch("https://movie-nest-app-630a7e8ce836.herokuapp.com/movies", {
+            headers: { Authorization: `Bearer ${token}`}
+        })
           .then((response) => response.json())
           .then((data) => {
             console.log("movies from api:", data);
@@ -35,10 +42,17 @@ export const MainView = () => {
     
             setMovies(moviesFromApi);
           });
-      }, []);
+      }, [token]);
 
     if (!user) {
-        return <LoginView />;
+        return (
+            <LoginView 
+                onLoggedIn={(user, token) => {
+                    setUser(user);
+                    setToken(token);
+                }}
+            />
+        );
     }
 
     if (selectedMovie) {
