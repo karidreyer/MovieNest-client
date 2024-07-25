@@ -57,7 +57,10 @@ export const MainView = () => {
 
     if (selectedMovie) {
         return (
-            <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
+            <>
+                <button onClick={() => { setUser(null); setToken(null); }}>Logout</button>
+                <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
+            </>
         );
     }
 
@@ -67,6 +70,7 @@ export const MainView = () => {
 
     return (
         <div>
+            <button onClick={() => { setUser(null); setToken(null); }}>Logout</button>
             {movies.map((movie) => (
                 <MovieCard 
                     key={movie.title} 
