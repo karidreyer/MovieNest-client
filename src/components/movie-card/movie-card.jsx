@@ -3,13 +3,13 @@ import { Button, Card } from "react-bootstrap";
 
 export const MovieCard = ({ movie, onClick }) => {
     return (
-        <Card onClick={() => { onClick(movie); }}>
+        <Card className="h-100" onClick={() => { onClick(movie); }}>
             <Card.Img variant="top" src={movie.imagePath} />
-            <Card.Body>
+            <Card.Body className="d-flex flex-column">
                 <Card.Title>{movie.title}</Card.Title>
                 <Card.Text>{movie.description}</Card.Text>
+                <div className="mt-auto text-muted text-end">{movie.genre.name}</div>
             </Card.Body>
-            {movie.title}
         </Card>
     );
 };
