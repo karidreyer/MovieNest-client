@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Row, Col } from 'react-bootstrap';
+import { Col, Container, Nav, Row } from 'react-bootstrap';
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
@@ -60,17 +60,16 @@ export const MainView = () => {
     };
     
     return (
-        <Row className="justify-content-md-center">
+        <Row>
             {!user ? (
-                <Col md={5}>
-                    <LoginView onLoggedIn={(user, token) => { setUser(user); setToken(token); }} />
-                    or
-                    <SignupView />
-                </Col>
+            <Container>
+                <LoginView onLoggedIn={(user, token) => { setUser(user); setToken(token); }} />
+                <SignupView />
+            </Container>
             ) : selectedMovie ? (
                 <>
                     <NavBar onLogout={handleLogout} />
-                    <Col md={8}>
+                    <Col>
                         <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
                     </Col>
                 </>
