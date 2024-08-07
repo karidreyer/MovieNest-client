@@ -1,30 +1,38 @@
+import { Button, Col, Container, Image, Row } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import './movie-view.scss';
 
 export const MovieView = ({ movie, onBackClick }) => {
-    return (
-        <div>
-            <div>
-                <img src={movie.imagePath} />
-            </div>
-            <div>
-                <span>Title: </span>
-                <span>{movie.title}</span>
-            </div>
-            <div>
-                <span>Director: </span>
-                <span>{movie.director.name}</span>
-            </div>
-            <div>
-                <span>Description: </span>
-                <span>{movie.description}</span>
-            </div>
-            <div>
-                <span>Genre: </span>
-                <span>{movie.genre.name}</span>
-            </div>
-            <button onClick={onBackClick}>Back</button>
-        </div>
 
+    return (
+        <Container fluid className="mt-5">
+            <Row>
+                <Col md={8} className="pr-md-5">
+                    <Row>
+                        <Col>
+                            <h2>{movie.title}</h2>
+                        </Col>
+                    </Row>
+                    <Row className="d-flex align-items-end text-muted">
+                        <Col md={6}>
+                            <h4>{movie.director.name}</h4>
+                        </Col>
+                        <Col md={6} className="text-md-end">
+                            <h6>{movie.genre.name}</h6>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col className="mt-3">
+                            <p>{movie.description}</p>
+                        </Col>
+                    </Row>
+                </Col>
+                <Col md={4} className="pl-md-5">
+                    <Image src={movie.imagePath} fluid />
+                </Col>
+            </Row>
+            <Button variant="link" onClick={onBackClick}>Back</Button>
+        </Container>
     );
 };
 
