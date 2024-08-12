@@ -5,7 +5,6 @@ import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
 import { NavBar } from "../nav-bar/nav-bar"
-import { SearchBar } from "../search-bar/search-bar";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 export const MainView = () => {
@@ -14,8 +13,6 @@ export const MainView = () => {
     const [user, setUser] = useState(storedUser ? storedUser : null);
     const [token, setToken] = useState(storedToken ? storedToken : null);
     const [movies, setMovies] = useState([]);
-    const [selectedMovie, setSelectedMovie] = useState(null);
-    const [searchQuery, setSearchQuery] = useState("");
 
     useEffect(() => {
         if (!token) {
@@ -49,22 +46,12 @@ export const MainView = () => {
             setMovies(moviesFromApi);
           });
       }, [token]);
-
-    const filteredMovies = movies.filter(movie =>
-        movie.title.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-
-    const handleLogout = () => {
-        setUser(null);
-        setToken(null);
-        localStorage.clear();
-    };
     
     return (
         <BrowserRouter>
+            <NavBar user={user} onLoggedOut={() => { setUser(null); }} />
             <Row>
                 <Routes>
-
                     <Route
                         path="/signup"
                         element={
@@ -96,7 +83,7 @@ export const MainView = () => {
                     />
 
                     <Route
-                        path="/movies/:movieTitle"
+                        path="/movies/:movieId"
                         element={
                             <>
                                 {!user ? (
@@ -104,12 +91,9 @@ export const MainView = () => {
                                 ) : movies.length === 0 ? (
                                     <Col>The list is empty!</Col>
                                 ) : (
-                                    <>
-                                        <NavBar onLogout={handleLogout} />
-                                        <Col>
-                                            <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
-                                        </Col>
-                                    </>
+                                    <Col>
+                                        <MovieView movies={movies} />
+                                     </Col>
                                 )}
                             </>
                         }
@@ -124,17 +108,13 @@ export const MainView = () => {
                                 ) : movies.length === 0 ? (
                                     <Col>The list is empty!</Col>
                                 ) : (
-                                    <>
-                                        <NavBar onLogout={handleLogout} />
-                                        <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-                                        <Row>
-                                            {movies.map((movie) => (
-                                                <Col key={movie.title} xs={12} sm={6} md={4} lg={3} className="mb-5">
-                                                    <MovieCard movie={movie} />
-                                                </Col>
-                                            ))}
-                                        </Row>
-                                    </>
+                                    <Row>
+                                        {movies.map((movie) => (
+                                            <Col key={movie.title} xs={12} sm={6} md={4} lg={3} className="mb-5">
+                                                <MovieCard movie={movie} />
+                                            </Col>
+                                        ))}
+                                    </Row>
                                 )}
                             </>
                         }
