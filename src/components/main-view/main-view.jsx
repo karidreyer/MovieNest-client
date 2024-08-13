@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { Col, Container, Nav, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
 import { NavBar } from "../nav-bar/nav-bar"
+import { ProfileView } from "../profile-view/profile-view";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 export const MainView = () => {
@@ -46,6 +47,8 @@ export const MainView = () => {
             setMovies(moviesFromApi);
           });
       }, [token]);
+
+    console.log('User:', user); //Temporary for debugging
     
     return (
         <BrowserRouter>
@@ -79,6 +82,17 @@ export const MainView = () => {
                                     </Container>
                                 )}
                             </>
+                        }
+                    />
+
+                    <Route
+                        path="/profile"
+                        element={
+                            user ? (
+                                <ProfileView token={token} />
+                            ) : (
+                                <Navigate to="/login" replace />
+                            )
                         }
                     />
 
