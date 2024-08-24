@@ -1,4 +1,4 @@
-import { Col, Container, Image, Row } from 'react-bootstrap';
+import { Button, Col, Container, Image, Row } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
@@ -37,7 +37,7 @@ export const MovieView = ({ movies }) => {
                 </Col>
             </Row>
             <Link to={`/`}>
-                <button className="back-button">Back</button>
+                <Button variant="primary">Back</Button>
             </Link>
         </Container>
     );
