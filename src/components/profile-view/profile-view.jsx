@@ -1,27 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Col, Container, FloatingLabel, Form, Row } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { FavMovies } from "./fav-movies";
 
-export const ProfileView = ({ user }) => {
-    const [userData, setUserData] = useState(null); // State to store user data
-    const [loading, setLoading] = useState(true); // State to manage loading
-    const [error, setError] = useState(null); // State to manage errors
+export const ProfileView = ({ user, token, movies }) => {
+    const [userData, setUserData] = useState(user); // State to store user data
+    const [loading, setLoading] = useState(false); // State to manage loading
+    const [error, setError] = useState(""); // State to manage errors
 
     useEffect(() => {
         if (!user) {
             setError("User not found"); // Handle case where user is null
-            setLoading(false);
             return;
           }
 
-        // Function to fetch user data
+        // Function to fetch user data (of the logged in user)
         const fetchUser = async () => {
         try {
-            const response = await fetch(`https://movie-nest-app-630a7e8ce836.herokuapp.com/users`);
+            setLoading(true);
+            const response = await fetch(`https://movie-nest-app-630a7e8ce836.herokuapp.com/users/${user.Username}`, {
+                headers: { Authorization: `Bearer ${token}`}
+            });
             if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
             }
             const data = await response.json();
             setUserData(data); // Set user data to state
+
         } catch (err) {
             setError(err.message); // Set error message
         } finally {
@@ -30,7 +35,7 @@ export const ProfileView = ({ user }) => {
         };
 
         fetchUser();
-    }, [user]);
+    }, [user.Username]); //Re-fetch data when user.Username changes to avoid HTTP request error
 
     // Display loading state
     if (loading) {
@@ -49,18 +54,23 @@ export const ProfileView = ({ user }) => {
                 <Col md={8} className="pr-md-5">
                     <Row>
                         <Col>
-                            <h2>{userData.Username}</h2>
+                            <h4>My Profile</h4>
                         </Col>
                     </Row>
-                    <Row className="d-flex align-items-end text-muted">
-                        <Col md={6} className="text-md-end">
+                    <Row>
+                        <Col md={6}>
+                            <h6>Username: {userData.Username}</h6>
                             <h6>Email: {userData.Email}</h6>
-                            <h6>Birthday: {userData?.Birthday}</h6>
                         </Col>
                     </Row>
+                    <FavMovies userData={userData} movies={movies} />
                 </Col>
             </Row>
-            <Link to={`/`} className="p-0">Edit Profile Information</Link>
+            <Row>
+                <Link to={`/profile/update`}> 
+                    <Button variant="primary">Edit</Button>
+                </Link>
+            </Row>
         </Container>
     );
 };
