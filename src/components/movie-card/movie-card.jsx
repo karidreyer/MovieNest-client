@@ -2,19 +2,31 @@ import React from "react";
 import PropTypes from 'prop-types';
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { FavouriteToggle } from './favourite-toggle';
 
-export const MovieCard = ({ movie }) => {
+export const MovieCard = ({ movie, user, token, onFavouriteToggle }) => {
+    const isFavourite = user.FavouriteMovies.includes(movie.id);
+
     return (
-        <Link to={`/movies/${movie.id}`} className="text-decoration-none">
-            <Card className="h-100">
-                <Card.Img variant="top" src={movie.imagePath} />
-                <Card.Body className="d-flex flex-column">
-                    <Card.Title>{movie.title}</Card.Title>
-                    <Card.Text>{movie.description}</Card.Text>
-                    <div className="mt-auto text-muted text-end">{movie.genre.name}</div>
-                </Card.Body>
-            </Card>
-        </Link>
+        <div className="position-relative">
+            <Link to={`/movies/${movie.id}`} className="text-decoration-none">
+                <Card className="h-100">
+                    <Card.Img variant="top" src={movie.imagePath} />
+                    <Card.Body className="d-flex flex-column">
+                        <Card.Title>{movie.title}</Card.Title>
+                        <Card.Text>{movie.description}</Card.Text>
+                        <div className="mt-auto text-muted text-end">{movie.genre.name}</div>
+                    </Card.Body>
+                </Card>
+            </Link>
+            <FavouriteToggle 
+                user={user}
+                token={token}
+                movieId={movie.id}
+                isFavourite={isFavourite}
+                onFavouriteToggle={onFavouriteToggle}
+            />
+        </div>
     );
 };
 
@@ -34,5 +46,8 @@ MovieCard.propTypes = {
             birth: PropTypes.string,
             death: PropTypes.string
         }).isRequired
-    }).isRequired
+    }).isRequired,
+    user: PropTypes.object.isRequired,
+    token: PropTypes.string.isRequired,
+    onFavouriteToggle: PropTypes.func.isRequired,
 };
