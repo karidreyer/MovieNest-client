@@ -1,6 +1,7 @@
 import { useState } from "react";
 import PropTypes from 'prop-types';
-import { Button, Col, Container, FloatingLabel, Form, Nav, Row } from "react-bootstrap";
+import { Button, Col, Container, FloatingLabel, Form, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import './login-view.scss';
 
 export const LoginView = ({ onLoggedIn }) => {
@@ -74,7 +75,7 @@ export const LoginView = ({ onLoggedIn }) => {
                         </div>
                     </Form>
                     <Col className="text-end">
-                        <Nav.Link to="/signup" className="p-0">Don't have an account?</Nav.Link>
+                        <Link to="/signup" className="p-0">Don't have an account?</Link>
                     </Col>
                 </Col>
             </Row>
