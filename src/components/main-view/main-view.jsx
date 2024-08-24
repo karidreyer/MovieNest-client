@@ -6,6 +6,7 @@ import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
 import { NavBar } from "../nav-bar/nav-bar"
 import { ProfileView } from "../profile-view/profile-view";
+import { ProfileUpdate } from "../profile-view/profile-update";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 export const MainView = () => {
@@ -14,6 +15,23 @@ export const MainView = () => {
     const [user, setUser] = useState(storedUser ? storedUser : null);
     const [token, setToken] = useState(storedToken ? storedToken : null);
     const [movies, setMovies] = useState([]);
+
+    // Function to update User information
+    const handleUserUpdate = (updatedUser) => {
+        setUser(updatedUser);
+        localStorage.setItem("user", JSON.stringify(updatedUser)); // Update local storage with the new user data
+    };
+
+    // Function to handle toggling a favourite movie
+    const onFavouriteToggle = (movieId, isFavourite) => {
+        const updatedUser = {
+            ...user,
+            FavouriteMovies: isFavourite
+            ? [...user.FavouriteMovies, movieId]
+            : user.FavouriteMovies.filter((id) => id !== movieId)
+        };
+        handleUserUpdate(updatedUser);
+    };
 
     useEffect(() => {
         if (!token) {
@@ -47,8 +65,6 @@ export const MainView = () => {
             setMovies(moviesFromApi);
           });
       }, [token]);
-
-    console.log('User:', user); //Temporary for debugging
     
     return (
         <BrowserRouter>
@@ -89,7 +105,7 @@ export const MainView = () => {
                         path="/profile"
                         element={
                             user ? (
-                                <ProfileView token={token} />
+                                <ProfileView user={user} token={token} movies={movies}/>
                             ) : (
                                 <Navigate to="/login" replace />
                             )
@@ -125,12 +141,28 @@ export const MainView = () => {
                                     <Row>
                                         {movies.map((movie) => (
                                             <Col key={movie.title} xs={12} sm={6} md={4} lg={3} className="mb-5">
-                                                <MovieCard movie={movie} />
+                                                <MovieCard 
+                                                    movie={movie} 
+                                                    user={user}
+                                                    token={token}
+                                                    onFavouriteToggle={onFavouriteToggle}
+                                                />
                                             </Col>
                                         ))}
                                     </Row>
                                 )}
                             </>
+                        }
+                    />
+
+                    <Route 
+                        path="/profile/update"
+                        element={
+                            user ? (
+                                <ProfileUpdate user={user} token={token} onUpdate={handleUserUpdate} />
+                            ) : (
+                                <Navigate to="/login" replace />
+                            )
                         }
                     />
                 </Routes>
