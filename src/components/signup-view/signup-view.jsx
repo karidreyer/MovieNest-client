@@ -28,6 +28,7 @@ export const SignupView = () => {
             if (response.ok) {
                 alert("Signup successful");
                 window.location.reload();
+                navigate('/signup');
             } else {
                 alert("Signup failed");
             }
