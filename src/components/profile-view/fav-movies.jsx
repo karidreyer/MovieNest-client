@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
 import { MovieCard } from "../movie-card/movie-card";
 
-export const FavMovies = ({ user, movies, token, onFavouritetoggle }) => {
+export const FavMovies = ({ user, movies, token, onFavouriteToggle }) => {
     const [favouriteMovies, setFavouriteMovies] = useState([]); // State to store favorite movies
 
     useEffect(() => {
@@ -31,7 +31,7 @@ export const FavMovies = ({ user, movies, token, onFavouritetoggle }) => {
                                 movie={movie}
                                 user={user}
                                 token={token}
-                                onFavouriteToggle={onFavouritetoggle}
+                                onFavouriteToggle={onFavouriteToggle}
                              />
                         </Col>
                     ))
