@@ -3,7 +3,7 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FavMovies } from "./fav-movies";
 
-export const ProfileView = ({ user, token, movies }) => {
+export const ProfileView = ({ user, token, movies, onFavouriteToggle }) => {
     const [userData, setUserData] = useState(user); // State to store user data
     const [loading, setLoading] = useState(false); // State to manage loading
     const [error, setError] = useState(""); // State to manage errors
@@ -35,7 +35,7 @@ export const ProfileView = ({ user, token, movies }) => {
         };
 
         fetchUser();
-    }, [user.Username]); //Re-fetch data when user.Username changes to avoid HTTP request error
+    }, [user, token]); //Re-fetch data when user.Username changes to avoid HTTP request error
 
     // Display loading state
     if (loading) {
@@ -63,7 +63,11 @@ export const ProfileView = ({ user, token, movies }) => {
                             <h6>Email: {userData.Email}</h6>
                         </Col>
                     </Row>
-                    <FavMovies userData={userData} movies={movies} />
+                    <FavMovies 
+                        user={userData} 
+                        movies={movies} 
+                        token={token}
+                        onFavouriteToggle={onFavouriteToggle}/>
                 </Col>
             </Row>
             <Row>
