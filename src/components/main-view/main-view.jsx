@@ -105,7 +105,12 @@ export const MainView = () => {
                         path="/profile"
                         element={
                             user ? (
-                                <ProfileView user={user} token={token} movies={movies}/>
+                                <ProfileView 
+                                    user={user} 
+                                    token={token} 
+                                    movies={movies}
+                                    onFavouriteToggle={onFavouriteToggle}
+                                />
                             ) : (
                                 <Navigate to="/login" replace />
                             )
