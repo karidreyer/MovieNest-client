@@ -1,8 +1,13 @@
 import { Button, Col, Container, Image, Row } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import { useParams } from "react-router";
+import { Link } from "react-router-dom";
 import './movie-view.scss';
 
-export const MovieView = ({ movie, onBackClick }) => {
+export const MovieView = ({ movies }) => {
+    const { movieId } = useParams();
+
+    const movie = movies.find((m) => m.id === movieId);
 
     return (
         <Container fluid className="mt-5">
@@ -31,27 +36,31 @@ export const MovieView = ({ movie, onBackClick }) => {
                     <Image src={movie.imagePath} fluid />
                 </Col>
             </Row>
-            <Button variant="link" onClick={onBackClick}>Back</Button>
+            <Link to={`/`}>
+                <Button variant="primary">Back</Button>
+            </Link>
         </Container>
     );
 };
 
 // Define Prop Types for Movie View
 MovieView.propTypes = {
-    movie: PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        description: PropTypes.string.isRequired,
-        imagePath: PropTypes.string.isRequired,
-        genre: PropTypes.shape({
-            name: PropTypes.string.isRequired,
-            description: PropTypes.string
-        }).isRequired,
-        director: PropTypes.shape({
-            name: PropTypes.string.isRequired,
-            bio: PropTypes.string,
-            birth: PropTypes.string,
-            death: PropTypes.string
-        }).isRequired
-    }).isRequired,
-    onBackClick: PropTypes.func.isRequired
+    movies: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.string.isRequired,
+            title: PropTypes.string.isRequired,
+            description: PropTypes.string.isRequired,
+            imagePath: PropTypes.string.isRequired,
+            genre: PropTypes.shape({
+                name: PropTypes.string.isRequired,
+                description: PropTypes.string
+            }).isRequired,
+            director: PropTypes.shape({
+                name: PropTypes.string.isRequired,
+                bio: PropTypes.string,
+                birth: PropTypes.string,
+                death: PropTypes.string
+            }).isRequired
+        })
+    ).isRequired
 };
