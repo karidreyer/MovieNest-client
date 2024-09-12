@@ -6,9 +6,6 @@ import Container from 'react-bootstrap/Container';
 // Import React Bootstrap
 import "bootstrap/dist/css/bootstrap.min.css";
 
-//Import statement to indicate that you need to bundle `./index.scss`
-import "./index.scss";
-
 //Main component (will eventually use all the others)
 const MovieNestApplication = () => {
     return (
