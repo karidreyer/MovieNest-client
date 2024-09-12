@@ -6,6 +6,12 @@ import { FavouriteToggle } from './favourite-toggle';
 
 export const MovieCard = ({ movie, user, token, onFavouriteToggle }) => {
     const isFavourite = user.FavouriteMovies.includes(movie.id);
+    const truncateText = (text, maxLength) => {
+        if (text.length <= maxLength) {
+            return text;
+        }
+        return text.slice(0, maxLength) + "...";
+    }
 
     return (
         <div className="position-relative">
@@ -14,7 +20,7 @@ export const MovieCard = ({ movie, user, token, onFavouriteToggle }) => {
                     <Card.Img variant="top" src={movie.imagePath} />
                     <Card.Body className="d-flex flex-column">
                         <Card.Title>{movie.title}</Card.Title>
-                        <Card.Text>{movie.description}</Card.Text>
+                        <Card.Text>{truncateText(movie.description, 80)}</Card.Text>
                         <div className="mt-auto text-muted text-end">{movie.genre.name}</div>
                     </Card.Body>
                 </Card>
