@@ -14,8 +14,11 @@
   "author": "Kari Dreyer",
   "license": "ISC",
   "dependencies": {
+    "autoprefixer": "^10.4.20",
     "bootstrap": "^5.3.3",
     "parcel-bundler": "^1.12.5",
+    "postcss": "^8.4.45",
+    "postcss-cli": "^11.0.0",
     "prop-types": "^15.8.1",
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.4",
