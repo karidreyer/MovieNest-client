@@ -1,13 +1,13 @@
 import React from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export const NavBar = ({ user, onLoggedOut }) => {
     return (
         <Navbar expand="lg" className="bg-body-tertiary">
             <Container fluid>
-                <Navbar.Brand as={Link} to="/">
+                <Navbar.Brand as={NavLink} to="/">
                     movieNest
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -15,28 +15,36 @@ export const NavBar = ({ user, onLoggedOut }) => {
                     <Nav className="me-auto">
                         {!user && (
                             <>
-                                <Nav.Link as={Link} to="/login">
+                                <NavLink to="/login" className="nav-link">
                                     Login
-                                </Nav.Link>
-                                <Nav.Link as={Link} to="/signup">
+                                </NavLink>
+                                <NavLink to="/signup" className="nav-link">
                                     Signup
-                                </Nav.Link>
+                                </NavLink>
                             </>
                         )}
                         {user && (
                             <>
-                                <Nav.Link as={Link} to="/">
+                                <NavLink to="/" className={({ isActive }) => `nav-link ${isActive ? 'fw-bold' : ''}`}>
                                     Home
-                                </Nav.Link>
-                                <Nav.Link as={Link} to="/profile">
+                                </NavLink>
+                                <NavLink to="/profile" className={({ isActive }) => `nav-link ${isActive ? 'fw-bold' : ''}`}>
                                     Profile
-                                </Nav.Link>
-                                <Nav.Link onClick={onLoggedOut}>
-                                    Logout
-                                </Nav.Link>
+                                </NavLink>
                             </>
                         )}
                     </Nav>
+                    {user && (
+                        <Nav className="ms-auto">
+                            <button 
+                                onClick={onLoggedOut} 
+                                className="btn btn-link text-primary"
+                                style={{ textDecoration: "none" }}
+                            >
+                                Logout
+                            </button>
+                        </Nav>
+                    )}
                 </Navbar.Collapse>
             </Container>
         </Navbar>
