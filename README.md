@@ -14,7 +14,7 @@ The Move Nest App is an app developed as a student project, focused on allowing 
   - Ability to navigate to Profile view
 - **Single Movie view**
   - Returns data (description, genre, director, image) about a single movie to the user
-  - Allows users to add a movie to their list of favorites
+  - Allows users to add and remove movies from their list of favourites
 - **Login view**
   - Allows users to log in with a username and password
 - **Signup view**
@@ -35,4 +35,4 @@ The Move Nest App is an app developed as a student project, focused on allowing 
 
 ## Project URL
 
-[Movie Nest] (#)
+[Movie Nest] (https://movienest-app.netlify.app/)
