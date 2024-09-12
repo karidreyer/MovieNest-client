@@ -7,6 +7,7 @@ import { SignupView } from "../signup-view/signup-view";
 import { NavBar } from "../nav-bar/nav-bar"
 import { ProfileView } from "../profile-view/profile-view";
 import { ProfileUpdate } from "../profile-view/profile-update";
+import { SearchBar} from "../search-bar/search-bar";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 export const MainView = () => {
@@ -15,6 +16,7 @@ export const MainView = () => {
     const [user, setUser] = useState(storedUser ? storedUser : null);
     const [token, setToken] = useState(storedToken ? storedToken : null);
     const [movies, setMovies] = useState([]);
+    const [searchQuery, setSearchQuery] = useState("");
 
     // Function to update User information
     const handleUserUpdate = (updatedUser) => {
@@ -65,6 +67,10 @@ export const MainView = () => {
             setMovies(moviesFromApi);
           });
       }, [token]);
+
+      // Filter movies based on search query
+        const filteredMovies = movies.filter((movie) => 
+            movie.title.toLowerCase().includes(searchQuery.toLowerCase()));
     
     return (
         <BrowserRouter>
@@ -123,11 +129,11 @@ export const MainView = () => {
                             <>
                                 {!user ? (
                                     <Navigate to="/login" replace />
-                                ) : movies.length === 0 ? (
+                                ) : filteredMovies.length === 0 ? (
                                     <Col>The list is empty!</Col>
                                 ) : (
                                     <Col>
-                                        <MovieView movies={movies} />
+                                        <MovieView movies={filteredMovies} />
                                      </Col>
                                 )}
                             </>
@@ -140,21 +146,26 @@ export const MainView = () => {
                             <>
                                 {!user ? (
                                     <Navigate to="/login" replace />
-                                ) : movies.length === 0 ? (
-                                    <Col>The list is empty!</Col>
                                 ) : (
-                                    <Row>
-                                        {movies.map((movie) => (
-                                            <Col key={movie.title} xs={12} sm={6} md={4} lg={3} className="mb-5">
-                                                <MovieCard 
-                                                    movie={movie} 
-                                                    user={user}
-                                                    token={token}
-                                                    onFavouriteToggle={onFavouriteToggle}
-                                                />
-                                            </Col>
-                                        ))}
-                                    </Row>
+                                    <>
+                                        <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+                                        {filteredMovies.length === 0 ? (
+                                            <Col>No movies found matching your search. Please try a different title.</Col>
+                                        ) : (
+                                            <Row>
+                                                {filteredMovies.map((movie) => (
+                                                    <Col key={movie.title} xs={12} sm={6} md={4} lg={3} className="mb-5">
+                                                        <MovieCard 
+                                                            movie={movie} 
+                                                            user={user}
+                                                            token={token}
+                                                            onFavouriteToggle={onFavouriteToggle}
+                                                        />
+                                                    </Col>
+                                                ))}
+                                            </Row>
+                                        )}
+                                    </>
                                 )}
                             </>
                         }
