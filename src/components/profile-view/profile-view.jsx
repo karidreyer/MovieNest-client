@@ -62,19 +62,20 @@ export const ProfileView = ({ user, token, movies, onFavouriteToggle }) => {
                             <h6>Username: {userData.Username}</h6>
                             <h6>Email: {userData.Email}</h6>
                         </Col>
+                    </Row>            
+                    <Row>
+                        <Link to={`/profile/update`}> 
+                        <Button variant="primary">Edit Profile</Button>
+                        </Link>
                     </Row>
                     <FavMovies 
                         user={userData} 
                         movies={movies} 
                         token={token}
-                        onFavouriteToggle={onFavouriteToggle}/>
+                        onFavouriteToggle={onFavouriteToggle} />
                 </Col>
             </Row>
-            <Row>
-                <Link to={`/profile/update`}> 
-                    <Button variant="primary">Edit</Button>
-                </Link>
-            </Row>
+
         </Container>
     );
 };
