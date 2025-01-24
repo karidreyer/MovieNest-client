@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The Move Nest App is an app developed as a student project, focused on allowing users to access information about different movies. It is a single-page, responsive app with routing, rich interactions, several interface views, and a polished user experience. The Movie Nest app is designed as a client-side piece to support the existing server-side Movie Nest API, which was built to facilitate user requests and render the response from the server-side via a number of different interface views.
+The Move Nest App is an app developed as a student project, focused on allowing users to access information about different movies. It is a single-page, responsive app with routing, interactions, and several interface views. The Movie Nest app is designed as a client-side piece to support the existing server-side Movie Nest API, which was built to facilitate user requests and render the response from the server-side via a number of different interface views.
 
 ## Essential Views & Features
 
@@ -35,4 +35,4 @@ The Move Nest App is an app developed as a student project, focused on allowing 
 
 ## Project URL
 
-[Movie Nest] (https://movienest-app.netlify.app/)
+[Movie Nest](https://movienest-app.netlify.app/)
