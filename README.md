@@ -4,7 +4,7 @@
 
 The Move Nest App is an app developed as a student project, focused on allowing users to access information about different movies. It is a single-page, responsive app with routing, interactions, and several interface views. The Movie Nest app is designed as a client-side piece to support the existing server-side Movie Nest API, which was built to facilitate user requests and render the response from the server-side via a number of different interface views.
 
-## Essential Views & Features
+## Features (by View)
 
 - **Main view**
   - Returns ALL movies to the user (each movie item with an image, title, and description)
@@ -26,12 +26,12 @@ The Move Nest App is an app developed as a student project, focused on allowing 
   - Allows users to remove a movie from their list of favorites
   - Allows existing users to deregister
 
-## Technologies
+## Technologies Used
 
-- React
-- ES2015+
-- Bootstrap
-- Parcel
+- **React**: A JavaScript library for building user interfaces, enabling a dynamic and component-based architecture.
+- **ES2015+**: Modern JavaScript syntax and features, including classes, modules, and arrow functions, ensuring clean and efficient code.
+- **Bootstrap**: A CSS framework for building responsive, mobile-first web applications with pre-designed components and styles.
+- **Parcel**: A fast, zero-config web application bundler, simplifying asset compilation and dependency management.
 
 ## Project URL
 
